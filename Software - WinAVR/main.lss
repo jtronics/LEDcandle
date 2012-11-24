@@ -1,0 +1,1127 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000065e  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000e  00800060  0000065e  000006f2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000049  0080006e  0080006e  00000700  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000700  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000113  00000000  00000000  00000720  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000002d9  00000000  00000000  00000833  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000127  00000000  00000000  00000b0c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000037a  00000000  00000000  00000c33  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000050  00000000  00000000  00000fb0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000189  00000000  00000000  00001000  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001fd  00000000  00000000  00001189  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2a c0       	rjmp	.+84     	; 0x58 <__bad_interrupt>
+   4:	29 c0       	rjmp	.+82     	; 0x58 <__bad_interrupt>
+   6:	28 c0       	rjmp	.+80     	; 0x58 <__bad_interrupt>
+   8:	60 c1       	rjmp	.+704    	; 0x2ca <__vector_4>
+   a:	26 c0       	rjmp	.+76     	; 0x58 <__bad_interrupt>
+   c:	25 c0       	rjmp	.+74     	; 0x58 <__bad_interrupt>
+   e:	24 c0       	rjmp	.+72     	; 0x58 <__bad_interrupt>
+  10:	23 c0       	rjmp	.+70     	; 0x58 <__bad_interrupt>
+  12:	22 c0       	rjmp	.+68     	; 0x58 <__bad_interrupt>
+  14:	21 c0       	rjmp	.+66     	; 0x58 <__bad_interrupt>
+  16:	20 c0       	rjmp	.+64     	; 0x58 <__bad_interrupt>
+  18:	1f c0       	rjmp	.+62     	; 0x58 <__bad_interrupt>
+  1a:	1e c0       	rjmp	.+60     	; 0x58 <__bad_interrupt>
+  1c:	1d c0       	rjmp	.+58     	; 0x58 <__bad_interrupt>
+  1e:	1c c0       	rjmp	.+56     	; 0x58 <__bad_interrupt>
+  20:	1b c0       	rjmp	.+54     	; 0x58 <__bad_interrupt>
+  22:	1a c0       	rjmp	.+52     	; 0x58 <__bad_interrupt>
+  24:	19 c0       	rjmp	.+50     	; 0x58 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf ed       	ldi	r28, 0xDF	; 223
+  2c:	cd bf       	out	0x3d, r28	; 61
+
+0000002e <__do_copy_data>:
+  2e:	10 e0       	ldi	r17, 0x00	; 0
+  30:	a0 e6       	ldi	r26, 0x60	; 96
+  32:	b0 e0       	ldi	r27, 0x00	; 0
+  34:	ee e5       	ldi	r30, 0x5E	; 94
+  36:	f6 e0       	ldi	r31, 0x06	; 6
+  38:	02 c0       	rjmp	.+4      	; 0x3e <.do_copy_data_start>
+
+0000003a <.do_copy_data_loop>:
+  3a:	05 90       	lpm	r0, Z+
+  3c:	0d 92       	st	X+, r0
+
+0000003e <.do_copy_data_start>:
+  3e:	ae 36       	cpi	r26, 0x6E	; 110
+  40:	b1 07       	cpc	r27, r17
+  42:	d9 f7       	brne	.-10     	; 0x3a <.do_copy_data_loop>
+
+00000044 <__do_clear_bss>:
+  44:	10 e0       	ldi	r17, 0x00	; 0
+  46:	ae e6       	ldi	r26, 0x6E	; 110
+  48:	b0 e0       	ldi	r27, 0x00	; 0
+  4a:	01 c0       	rjmp	.+2      	; 0x4e <.do_clear_bss_start>
+
+0000004c <.do_clear_bss_loop>:
+  4c:	1d 92       	st	X+, r1
+
+0000004e <.do_clear_bss_start>:
+  4e:	a7 3b       	cpi	r26, 0xB7	; 183
+  50:	b1 07       	cpc	r27, r17
+  52:	e1 f7       	brne	.-8      	; 0x4c <.do_clear_bss_loop>
+  54:	99 d1       	rcall	.+818    	; 0x388 <main>
+  56:	01 c3       	rjmp	.+1538   	; 0x65a <_exit>
+
+00000058 <__bad_interrupt>:
+  58:	d3 cf       	rjmp	.-90     	; 0x0 <__vectors>
+
+0000005a <tausche_zeiger>:
+void tausche_zeiger(void) 
+	{
+    uint16_t * tmp_ptr16;
+    uint8_t * tmp_ptr8;
+ 
+    tmp_ptr16 		= isr_ptr_time;
+  5a:	20 91 61 00 	lds	r18, 0x0061
+  5e:	30 91 62 00 	lds	r19, 0x0062
+    isr_ptr_time 	= main_ptr_time;
+  62:	80 91 63 00 	lds	r24, 0x0063
+  66:	90 91 64 00 	lds	r25, 0x0064
+  6a:	90 93 62 00 	sts	0x0062, r25
+  6e:	80 93 61 00 	sts	0x0061, r24
+    main_ptr_time 	= tmp_ptr16;
+  72:	30 93 64 00 	sts	0x0064, r19
+  76:	20 93 63 00 	sts	0x0063, r18
+    tmp_ptr8 		= isr_ptr_mask;
+  7a:	20 91 65 00 	lds	r18, 0x0065
+  7e:	30 91 66 00 	lds	r19, 0x0066
+    isr_ptr_mask 	= main_ptr_mask;
+  82:	80 91 67 00 	lds	r24, 0x0067
+  86:	90 91 68 00 	lds	r25, 0x0068
+  8a:	90 93 66 00 	sts	0x0066, r25
+  8e:	80 93 65 00 	sts	0x0065, r24
+    main_ptr_mask 	= tmp_ptr8;
+  92:	30 93 68 00 	sts	0x0068, r19
+  96:	20 93 67 00 	sts	0x0067, r18
+	}
+  9a:	08 95       	ret
+
+0000009c <pwm_update>:
+ 
+//####################################################################################################### 
+void pwm_update(void) // PWM Update, berechnet aus den PWM Einstellungen die neuen Werte für die Interruptroutine
+{
+  9c:	cf 93       	push	r28
+  9e:	df 93       	push	r29
+  a0:	91 e0       	ldi	r25, 0x01	; 1
+  a2:	40 e0       	ldi	r20, 0x00	; 0
+  a4:	21 e0       	ldi	r18, 0x01	; 1
+  a6:	30 e0       	ldi	r19, 0x00	; 0
+ 
+    tmp=0;
+    j = 1;
+    for(i=1; i<=(PWM_CHANNELS); i++) 
+		{
+        main_ptr_mask[i]=~j;                        // Maske zum Löschen der PWM Ausgänge
+  a8:	e0 91 67 00 	lds	r30, 0x0067
+  ac:	f0 91 68 00 	lds	r31, 0x0068
+  b0:	e2 0f       	add	r30, r18
+  b2:	f3 1f       	adc	r31, r19
+  b4:	89 2f       	mov	r24, r25
+  b6:	80 95       	com	r24
+  b8:	80 83       	st	Z, r24
+        pwm_setting_tmp[i] = pwm_setting[i-1];
+  ba:	f9 01       	movw	r30, r18
+  bc:	e6 57       	subi	r30, 0x76	; 118
+  be:	ff 4f       	sbci	r31, 0xFF	; 255
+  c0:	80 81       	ld	r24, Z
+  c2:	f9 01       	movw	r30, r18
+  c4:	e2 55       	subi	r30, 0x52	; 82
+  c6:	ff 4f       	sbci	r31, 0xFF	; 255
+  c8:	80 83       	st	Z, r24
+        if (pwm_setting_tmp[i]!=0) tmp |= j;        // Maske zum setzen der IOs am PWM Start
+  ca:	81 11       	cpse	r24, r1
+  cc:	49 2b       	or	r20, r25
+  ce:	2f 5f       	subi	r18, 0xFF	; 255
+  d0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 
+    // PWM Maske für Start berechnen und gleichzeitig die Bitmasken generieren und PWM Werte kopieren
+ 
+    tmp=0;
+    j = 1;
+    for(i=1; i<=(PWM_CHANNELS); i++) 
+  d2:	29 30       	cpi	r18, 0x09	; 9
+  d4:	31 05       	cpc	r19, r1
+  d6:	11 f0       	breq	.+4      	; 0xdc <pwm_update+0x40>
+		{
+        main_ptr_mask[i]=~j;                        // Maske zum Löschen der PWM Ausgänge
+        pwm_setting_tmp[i] = pwm_setting[i-1];
+        if (pwm_setting_tmp[i]!=0) tmp |= j;        // Maske zum setzen der IOs am PWM Start
+        j <<= 1;
+  d8:	99 0f       	add	r25, r25
+  da:	e6 cf       	rjmp	.-52     	; 0xa8 <pwm_update+0xc>
+		}	
+    main_ptr_mask[0]=tmp;                           // PWM Start Daten 
+  dc:	e0 91 67 00 	lds	r30, 0x0067
+  e0:	f0 91 68 00 	lds	r31, 0x0068
+  e4:	40 83       	st	Z, r20
+  e6:	cf ea       	ldi	r28, 0xAF	; 175
+  e8:	d0 e0       	ldi	r29, 0x00	; 0
+  ea:	91 e0       	ldi	r25, 0x01	; 1
+  ec:	21 e0       	ldi	r18, 0x01	; 1
+  ee:	41 e0       	ldi	r20, 0x01	; 1
+  f0:	50 e0       	ldi	r21, 0x00	; 0
+  f2:	37 c0       	rjmp	.+110    	; 0x162 <__stack+0x83>
+		{
+        min=255;
+        k=i;
+        for(j=i; j<=PWM_CHANNELS; j++) 
+			{
+            if (pwm_setting_tmp[j]<min) 
+  f4:	e9 2f       	mov	r30, r25
+  f6:	f0 e0       	ldi	r31, 0x00	; 0
+  f8:	e2 55       	subi	r30, 0x52	; 82
+  fa:	ff 4f       	sbci	r31, 0xFF	; 255
+  fc:	e0 81       	ld	r30, Z
+  fe:	e8 17       	cp	r30, r24
+ 100:	10 f0       	brcs	.+4      	; 0x106 <__stack+0x27>
+ 102:	e8 2f       	mov	r30, r24
+ 104:	01 c0       	rjmp	.+2      	; 0x108 <__stack+0x29>
+ 106:	29 2f       	mov	r18, r25
+ 
+    for(i=1; i<=PWM_CHANNELS; i++) 
+		{
+        min=255;
+        k=i;
+        for(j=i; j<=PWM_CHANNELS; j++) 
+ 108:	9f 5f       	subi	r25, 0xFF	; 255
+ 10a:	8e 2f       	mov	r24, r30
+ 10c:	99 30       	cpi	r25, 0x09	; 9
+ 10e:	90 f3       	brcs	.-28     	; 0xf4 <__stack+0x15>
+				{
+                k=j;                                // Index und PWM-setting merken
+                min = pwm_setting_tmp[j];
+				}
+			}
+        if (k!=i) 
+ 110:	26 17       	cp	r18, r22
+ 112:	d9 f0       	breq	.+54     	; 0x14a <__stack+0x6b>
+			{
+            // ermitteltes Minimum mit aktueller Sortiertstelle tauschen
+            tmp = pwm_setting_tmp[k];
+ 114:	30 e0       	ldi	r19, 0x00	; 0
+ 116:	f9 01       	movw	r30, r18
+ 118:	e2 55       	subi	r30, 0x52	; 82
+ 11a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 11c:	90 81       	ld	r25, Z
+            pwm_setting_tmp[k] = pwm_setting_tmp[i];
+ 11e:	88 81       	ld	r24, Y
+ 120:	80 83       	st	Z, r24
+            pwm_setting_tmp[i] = tmp;
+ 122:	98 83       	st	Y, r25
+            tmp = main_ptr_mask[k];
+ 124:	e0 91 67 00 	lds	r30, 0x0067
+ 128:	f0 91 68 00 	lds	r31, 0x0068
+ 12c:	df 01       	movw	r26, r30
+ 12e:	a2 0f       	add	r26, r18
+ 130:	b3 1f       	adc	r27, r19
+ 132:	9c 91       	ld	r25, X
+            main_ptr_mask[k] = main_ptr_mask[i];
+ 134:	e4 0f       	add	r30, r20
+ 136:	f5 1f       	adc	r31, r21
+ 138:	80 81       	ld	r24, Z
+ 13a:	8c 93       	st	X, r24
+            main_ptr_mask[i] = tmp;
+ 13c:	e0 91 67 00 	lds	r30, 0x0067
+ 140:	f0 91 68 00 	lds	r31, 0x0068
+ 144:	e4 0f       	add	r30, r20
+ 146:	f5 1f       	adc	r31, r21
+ 148:	90 83       	st	Z, r25
+ 14a:	6f 5f       	subi	r22, 0xFF	; 255
+ 14c:	21 96       	adiw	r28, 0x01	; 1
+ 14e:	4f 5f       	subi	r20, 0xFF	; 255
+ 150:	5f 4f       	sbci	r21, 0xFF	; 255
+ 152:	26 2f       	mov	r18, r22
+ 154:	96 2f       	mov	r25, r22
+    main_ptr_mask[0]=tmp;                           // PWM Start Daten 
+ 
+
+    // PWM settings sortieren; Einfügesortieren
+ 
+    for(i=1; i<=PWM_CHANNELS; i++) 
+ 156:	49 30       	cpi	r20, 0x09	; 9
+ 158:	51 05       	cpc	r21, r1
+ 15a:	19 f4       	brne	.+6      	; 0x162 <__stack+0x83>
+ 15c:	58 e0       	ldi	r21, 0x08	; 8
+ 15e:	41 e0       	ldi	r20, 0x01	; 1
+ 160:	2b c0       	rjmp	.+86     	; 0x1b8 <__stack+0xd9>
+ 162:	64 2f       	mov	r22, r20
+ 164:	8f ef       	ldi	r24, 0xFF	; 255
+ 166:	d2 cf       	rjmp	.-92     	; 0x10c <__stack+0x2d>
+        while ( ((pwm_setting_tmp[i]==pwm_setting_tmp[i+1]) || (pwm_setting_tmp[i]==0))  && (k>i) ) 
+			{
+ 
+            // aufeinanderfolgende Werte sind gleich und können vereinigt werden
+            // oder PWM Wert ist Null
+            if (pwm_setting_tmp[i]!=0)
+ 168:	99 23       	and	r25, r25
+ 16a:	89 f0       	breq	.+34     	; 0x18e <__stack+0xaf>
+                main_ptr_mask[i+1] &= main_ptr_mask[i];        // Masken vereinigen
+ 16c:	e0 91 67 00 	lds	r30, 0x0067
+ 170:	f0 91 68 00 	lds	r31, 0x0068
+ 174:	84 2f       	mov	r24, r20
+ 176:	90 e0       	ldi	r25, 0x00	; 0
+ 178:	01 96       	adiw	r24, 0x01	; 1
+ 17a:	df 01       	movw	r26, r30
+ 17c:	a8 0f       	add	r26, r24
+ 17e:	b9 1f       	adc	r27, r25
+ 180:	01 97       	sbiw	r24, 0x01	; 1
+ 182:	e8 0f       	add	r30, r24
+ 184:	f9 1f       	adc	r31, r25
+ 186:	8c 91       	ld	r24, X
+ 188:	90 81       	ld	r25, Z
+ 18a:	89 23       	and	r24, r25
+ 18c:	8c 93       	st	X, r24
+ 18e:	94 2f       	mov	r25, r20
+ 190:	10 c0       	rjmp	.+32     	; 0x1b2 <__stack+0xd3>
+ 
+            // Datensatz entfernen,
+            // Nachfolger alle eine Stufe hochschieben
+            for(j=i; j<k; j++) 
+				{
+                pwm_setting_tmp[j] = pwm_setting_tmp[j+1];
+ 192:	29 2f       	mov	r18, r25
+ 194:	30 e0       	ldi	r19, 0x00	; 0
+ 196:	f9 01       	movw	r30, r18
+ 198:	e2 55       	subi	r30, 0x52	; 82
+ 19a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 19c:	81 81       	ldd	r24, Z+1	; 0x01
+ 19e:	80 83       	st	Z, r24
+                main_ptr_mask[j] = main_ptr_mask[j+1];
+ 1a0:	e0 91 67 00 	lds	r30, 0x0067
+ 1a4:	f0 91 68 00 	lds	r31, 0x0068
+ 1a8:	e2 0f       	add	r30, r18
+ 1aa:	f3 1f       	adc	r31, r19
+ 1ac:	81 81       	ldd	r24, Z+1	; 0x01
+ 1ae:	80 83       	st	Z, r24
+            if (pwm_setting_tmp[i]!=0)
+                main_ptr_mask[i+1] &= main_ptr_mask[i];        // Masken vereinigen
+ 
+            // Datensatz entfernen,
+            // Nachfolger alle eine Stufe hochschieben
+            for(j=i; j<k; j++) 
+ 1b0:	9f 5f       	subi	r25, 0xFF	; 255
+ 1b2:	95 17       	cp	r25, r21
+ 1b4:	70 f3       	brcs	.-36     	; 0x192 <__stack+0xb3>
+				{
+                pwm_setting_tmp[j] = pwm_setting_tmp[j+1];
+                main_ptr_mask[j] = main_ptr_mask[j+1];
+				}
+            k--;
+ 1b6:	51 50       	subi	r21, 0x01	; 1
+    k=PWM_CHANNELS;             // PWM_CHANNELS Datensätze
+    i=1;                        // Startindex
+ 
+    while(k>i) 
+		{
+        while ( ((pwm_setting_tmp[i]==pwm_setting_tmp[i+1]) || (pwm_setting_tmp[i]==0))  && (k>i) ) 
+ 1b8:	e4 2f       	mov	r30, r20
+ 1ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 1bc:	e2 55       	subi	r30, 0x52	; 82
+ 1be:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1c0:	90 81       	ld	r25, Z
+ 1c2:	81 81       	ldd	r24, Z+1	; 0x01
+ 1c4:	98 17       	cp	r25, r24
+ 1c6:	11 f0       	breq	.+4      	; 0x1cc <__stack+0xed>
+ 1c8:	99 23       	and	r25, r25
+ 1ca:	11 f4       	brne	.+4      	; 0x1d0 <__stack+0xf1>
+ 1cc:	45 17       	cp	r20, r21
+ 1ce:	60 f2       	brcs	.-104    	; 0x168 <__stack+0x89>
+                pwm_setting_tmp[j] = pwm_setting_tmp[j+1];
+                main_ptr_mask[j] = main_ptr_mask[j+1];
+				}
+            k--;
+			}
+        i++;
+ 1d0:	4f 5f       	subi	r20, 0xFF	; 255
+    // Gleiche PWM-Werte vereinigen, ebenso den PWM-Wert 0 löschen falls vorhanden
+ 
+    k=PWM_CHANNELS;             // PWM_CHANNELS Datensätze
+    i=1;                        // Startindex
+ 
+    while(k>i) 
+ 1d2:	45 17       	cp	r20, r21
+ 1d4:	88 f3       	brcs	.-30     	; 0x1b8 <__stack+0xd9>
+		}
+    
+    // letzten Datensatz extra behandeln
+    // Vergleich mit dem Nachfolger nicht möglich, nur löschen
+    // gilt nur im Sonderfall, wenn alle Kanäle 0 sind
+    if (pwm_setting_tmp[i]==0) k--;
+ 1d6:	e4 2f       	mov	r30, r20
+ 1d8:	f0 e0       	ldi	r31, 0x00	; 0
+ 1da:	e2 55       	subi	r30, 0x52	; 82
+ 1dc:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1de:	80 81       	ld	r24, Z
+ 1e0:	88 23       	and	r24, r24
+ 1e2:	09 f4       	brne	.+2      	; 0x1e6 <__stack+0x107>
+ 1e4:	51 50       	subi	r21, 0x01	; 1
+ 1e6:	c0 91 63 00 	lds	r28, 0x0063
+ 1ea:	d0 91 64 00 	lds	r29, 0x0064
+ 
+    // Zeitdifferenzen berechnen
+    
+    if (k==0) { // Sonderfall, wenn alle Kanäle 0 sind
+ 1ee:	55 23       	and	r21, r21
+ 1f0:	41 f4       	brne	.+16     	; 0x202 <__stack+0x123>
+        main_ptr_time[0]=(uint16_t)T_PWM*PWM_STEPS/2;
+ 1f2:	80 e0       	ldi	r24, 0x00	; 0
+ 1f4:	90 e1       	ldi	r25, 0x10	; 16
+ 1f6:	99 83       	std	Y+1, r25	; 0x01
+ 1f8:	88 83       	st	Y, r24
+        main_ptr_time[1]=(uint16_t)T_PWM*PWM_STEPS/2;
+ 1fa:	9b 83       	std	Y+3, r25	; 0x03
+ 1fc:	8a 83       	std	Y+2, r24	; 0x02
+ 1fe:	51 e0       	ldi	r21, 0x01	; 1
+ 200:	37 c0       	rjmp	.+110    	; 0x270 <__stack+0x191>
+        k=1;
+    }
+    else 
+		{
+        i=k;
+        main_ptr_time[i]=(uint16_t)T_PWM*(PWM_STEPS-pwm_setting_tmp[i]);
+ 202:	e5 2f       	mov	r30, r21
+ 204:	f0 e0       	ldi	r31, 0x00	; 0
+ 206:	df 01       	movw	r26, r30
+ 208:	aa 0f       	add	r26, r26
+ 20a:	bb 1f       	adc	r27, r27
+ 20c:	ac 0f       	add	r26, r28
+ 20e:	bd 1f       	adc	r27, r29
+ 210:	e2 55       	subi	r30, 0x52	; 82
+ 212:	ff 4f       	sbci	r31, 0xFF	; 255
+ 214:	20 81       	ld	r18, Z
+ 216:	80 e0       	ldi	r24, 0x00	; 0
+ 218:	91 e0       	ldi	r25, 0x01	; 1
+ 21a:	82 1b       	sub	r24, r18
+ 21c:	91 09       	sbc	r25, r1
+ 21e:	75 e0       	ldi	r23, 0x05	; 5
+ 220:	88 0f       	add	r24, r24
+ 222:	99 1f       	adc	r25, r25
+ 224:	7a 95       	dec	r23
+ 226:	e1 f7       	brne	.-8      	; 0x220 <__stack+0x141>
+ 228:	8d 93       	st	X+, r24
+ 22a:	9c 93       	st	X, r25
+        j=pwm_setting_tmp[i];
+ 22c:	e0 81       	ld	r30, Z
+        i--;
+ 22e:	95 2f       	mov	r25, r21
+ 230:	14 c0       	rjmp	.+40     	; 0x25a <__stack+0x17b>
+        for (; i>0; i--)
+			{
+            main_ptr_time[i]=(uint16_t)T_PWM*(j-pwm_setting_tmp[i]);
+ 232:	e9 2f       	mov	r30, r25
+ 234:	f0 e0       	ldi	r31, 0x00	; 0
+ 236:	df 01       	movw	r26, r30
+ 238:	aa 0f       	add	r26, r26
+ 23a:	bb 1f       	adc	r27, r27
+ 23c:	ac 0f       	add	r26, r28
+ 23e:	bd 1f       	adc	r27, r29
+ 240:	e2 55       	subi	r30, 0x52	; 82
+ 242:	ff 4f       	sbci	r31, 0xFF	; 255
+ 244:	80 81       	ld	r24, Z
+ 246:	28 1b       	sub	r18, r24
+ 248:	31 09       	sbc	r19, r1
+ 24a:	45 e0       	ldi	r20, 0x05	; 5
+ 24c:	22 0f       	add	r18, r18
+ 24e:	33 1f       	adc	r19, r19
+ 250:	4a 95       	dec	r20
+ 252:	e1 f7       	brne	.-8      	; 0x24c <__stack+0x16d>
+ 254:	2d 93       	st	X+, r18
+ 256:	3c 93       	st	X, r19
+            j=pwm_setting_tmp[i];
+ 258:	e0 81       	ld	r30, Z
+		{
+        i=k;
+        main_ptr_time[i]=(uint16_t)T_PWM*(PWM_STEPS-pwm_setting_tmp[i]);
+        j=pwm_setting_tmp[i];
+        i--;
+        for (; i>0; i--)
+ 25a:	91 50       	subi	r25, 0x01	; 1
+ 25c:	2e 2f       	mov	r18, r30
+ 25e:	30 e0       	ldi	r19, 0x00	; 0
+ 260:	41 f7       	brne	.-48     	; 0x232 <__stack+0x153>
+			{
+            main_ptr_time[i]=(uint16_t)T_PWM*(j-pwm_setting_tmp[i]);
+            j=pwm_setting_tmp[i];
+			}
+        main_ptr_time[0]=(uint16_t)T_PWM*j;
+ 262:	85 e0       	ldi	r24, 0x05	; 5
+ 264:	22 0f       	add	r18, r18
+ 266:	33 1f       	adc	r19, r19
+ 268:	8a 95       	dec	r24
+ 26a:	e1 f7       	brne	.-8      	; 0x264 <__stack+0x185>
+ 26c:	39 83       	std	Y+1, r19	; 0x01
+ 26e:	28 83       	st	Y, r18
+		}
+ 
+    // auf Sync warten
+ 
+    pwm_sync=0;             // Sync wird im Interrupt gesetzt
+ 270:	10 92 78 00 	sts	0x0078, r1
+    while(pwm_sync==0);
+ 274:	80 91 78 00 	lds	r24, 0x0078
+ 278:	88 23       	and	r24, r24
+ 27a:	e1 f3       	breq	.-8      	; 0x274 <__stack+0x195>
+ 
+    // Zeiger tauschen
+    cli();
+ 27c:	f8 94       	cli
+void tausche_zeiger(void) 
+	{
+    uint16_t * tmp_ptr16;
+    uint8_t * tmp_ptr8;
+ 
+    tmp_ptr16 		= isr_ptr_time;
+ 27e:	20 91 61 00 	lds	r18, 0x0061
+ 282:	30 91 62 00 	lds	r19, 0x0062
+    isr_ptr_time 	= main_ptr_time;
+ 286:	80 91 63 00 	lds	r24, 0x0063
+ 28a:	90 91 64 00 	lds	r25, 0x0064
+ 28e:	90 93 62 00 	sts	0x0062, r25
+ 292:	80 93 61 00 	sts	0x0061, r24
+    main_ptr_time 	= tmp_ptr16;
+ 296:	30 93 64 00 	sts	0x0064, r19
+ 29a:	20 93 63 00 	sts	0x0063, r18
+    tmp_ptr8 		= isr_ptr_mask;
+ 29e:	20 91 65 00 	lds	r18, 0x0065
+ 2a2:	30 91 66 00 	lds	r19, 0x0066
+    isr_ptr_mask 	= main_ptr_mask;
+ 2a6:	80 91 67 00 	lds	r24, 0x0067
+ 2aa:	90 91 68 00 	lds	r25, 0x0068
+ 2ae:	90 93 66 00 	sts	0x0066, r25
+ 2b2:	80 93 65 00 	sts	0x0065, r24
+    main_ptr_mask 	= tmp_ptr8;
+ 2b6:	30 93 68 00 	sts	0x0068, r19
+ 2ba:	20 93 67 00 	sts	0x0067, r18
+    while(pwm_sync==0);
+ 
+    // Zeiger tauschen
+    cli();
+    tausche_zeiger();
+    pwm_cnt_max = k;
+ 2be:	50 93 60 00 	sts	0x0060, r21
+    sei();
+ 2c2:	78 94       	sei
+}
+ 2c4:	df 91       	pop	r29
+ 2c6:	cf 91       	pop	r28
+ 2c8:	08 95       	ret
+
+000002ca <__vector_4>:
+ 
+//####################################################################################################### Timer 1 Output COMPARE A Interrupt
+ISR(TIMER1_COMPA_vect)
+{
+ 2ca:	1f 92       	push	r1
+ 2cc:	0f 92       	push	r0
+ 2ce:	0f b6       	in	r0, 0x3f	; 63
+ 2d0:	0f 92       	push	r0
+ 2d2:	11 24       	eor	r1, r1
+ 2d4:	2f 93       	push	r18
+ 2d6:	3f 93       	push	r19
+ 2d8:	4f 93       	push	r20
+ 2da:	5f 93       	push	r21
+ 2dc:	6f 93       	push	r22
+ 2de:	8f 93       	push	r24
+ 2e0:	9f 93       	push	r25
+ 2e2:	ef 93       	push	r30
+ 2e4:	ff 93       	push	r31
+    static uint8_t pwm_cnt;
+    uint8_t tmp;
+ 
+    OCR1A += isr_ptr_time[pwm_cnt];
+ 2e6:	2a b5       	in	r18, 0x2a	; 42
+ 2e8:	3b b5       	in	r19, 0x2b	; 43
+ 2ea:	60 91 6e 00 	lds	r22, 0x006E
+ 2ee:	46 2f       	mov	r20, r22
+ 2f0:	50 e0       	ldi	r21, 0x00	; 0
+ 2f2:	ca 01       	movw	r24, r20
+ 2f4:	88 0f       	add	r24, r24
+ 2f6:	99 1f       	adc	r25, r25
+ 2f8:	e0 91 61 00 	lds	r30, 0x0061
+ 2fc:	f0 91 62 00 	lds	r31, 0x0062
+ 300:	e8 0f       	add	r30, r24
+ 302:	f9 1f       	adc	r31, r25
+ 304:	80 81       	ld	r24, Z
+ 306:	91 81       	ldd	r25, Z+1	; 0x01
+ 308:	28 0f       	add	r18, r24
+ 30a:	39 1f       	adc	r19, r25
+ 30c:	3b bd       	out	0x2b, r19	; 43
+ 30e:	2a bd       	out	0x2a, r18	; 42
+    tmp    = isr_ptr_mask[pwm_cnt];
+ 310:	e0 91 65 00 	lds	r30, 0x0065
+ 314:	f0 91 66 00 	lds	r31, 0x0066
+ 318:	e4 0f       	add	r30, r20
+ 31a:	f5 1f       	adc	r31, r21
+ 31c:	e0 81       	ld	r30, Z
+    
+    if (pwm_cnt == 0) 
+ 31e:	66 23       	and	r22, r22
+ 320:	29 f4       	brne	.+10     	; 0x32c <__vector_4+0x62>
+		{
+        PWM_PORT = tmp;                         // Ports setzen zu Begin der PWM
+ 322:	e8 bb       	out	0x18, r30	; 24
+        pwm_cnt++;
+ 324:	81 e0       	ldi	r24, 0x01	; 1
+ 326:	80 93 6e 00 	sts	0x006E, r24
+ 32a:	10 c0       	rjmp	.+32     	; 0x34c <__vector_4+0x82>
+		}
+    else 
+		{
+        PWM_PORT &= tmp;                        // Ports löschen
+ 32c:	88 b3       	in	r24, 0x18	; 24
+ 32e:	e8 23       	and	r30, r24
+ 330:	e8 bb       	out	0x18, r30	; 24
+        if (pwm_cnt == pwm_cnt_max) 
+ 332:	80 91 60 00 	lds	r24, 0x0060
+ 336:	68 17       	cp	r22, r24
+ 338:	31 f4       	brne	.+12     	; 0x346 <__vector_4+0x7c>
+			{
+            pwm_sync = 1;                       // Update jetzt möglich
+ 33a:	81 e0       	ldi	r24, 0x01	; 1
+ 33c:	80 93 78 00 	sts	0x0078, r24
+            pwm_cnt  = 0;
+ 340:	10 92 6e 00 	sts	0x006E, r1
+ 344:	03 c0       	rjmp	.+6      	; 0x34c <__vector_4+0x82>
+			}
+        else pwm_cnt++;
+ 346:	6f 5f       	subi	r22, 0xFF	; 255
+ 348:	60 93 6e 00 	sts	0x006E, r22
+		}
+
+	//TASTER ... AN oder AUS ... schaltet pin schnell wieder aus  wenn taster gedrückt...
+
+ 	if (!(PIND & (1<<PIND5)))	{PORTB &=~(1<<0);} 
+ 34c:	85 9b       	sbis	0x10, 5	; 16
+ 34e:	c0 98       	cbi	0x18, 0	; 24
+ 	if (!(PIND & (1<<PIND4)))	{PORTB &=~(1<<1);} 
+ 350:	84 9b       	sbis	0x10, 4	; 16
+ 352:	c1 98       	cbi	0x18, 1	; 24
+ 	if (!(PIND & (1<<PIND3)))	{PORTB &=~(1<<2);} 
+ 354:	83 9b       	sbis	0x10, 3	; 16
+ 356:	c2 98       	cbi	0x18, 2	; 24
+	if (!(PIND & (1<<PIND2)))	{PORTB &=~(1<<3);} 
+ 358:	82 9b       	sbis	0x10, 2	; 16
+ 35a:	c3 98       	cbi	0x18, 3	; 24
+ 	if (!(PINA & (1<<PINA0)))	{PORTB &=~(1<<4);} 
+ 35c:	c8 9b       	sbis	0x19, 0	; 25
+ 35e:	c4 98       	cbi	0x18, 4	; 24
+ 	if (!(PINA & (1<<PINA1)))	{PORTB &=~(1<<5);} 
+ 360:	c9 9b       	sbis	0x19, 1	; 25
+ 362:	c5 98       	cbi	0x18, 5	; 24
+ 	if (!(PIND & (1<<PIND1)))	{PORTB &=~(1<<6);} 
+ 364:	81 9b       	sbis	0x10, 1	; 16
+ 366:	c6 98       	cbi	0x18, 6	; 24
+ 	if (!(PIND & (1<<PIND0)))	{PORTB &=~(1<<7);} 
+ 368:	80 9b       	sbis	0x10, 0	; 16
+ 36a:	c7 98       	cbi	0x18, 7	; 24
+
+}
+ 36c:	ff 91       	pop	r31
+ 36e:	ef 91       	pop	r30
+ 370:	9f 91       	pop	r25
+ 372:	8f 91       	pop	r24
+ 374:	6f 91       	pop	r22
+ 376:	5f 91       	pop	r21
+ 378:	4f 91       	pop	r20
+ 37a:	3f 91       	pop	r19
+ 37c:	2f 91       	pop	r18
+ 37e:	0f 90       	pop	r0
+ 380:	0f be       	out	0x3f, r0	; 63
+ 382:	0f 90       	pop	r0
+ 384:	1f 90       	pop	r1
+ 386:	18 95       	reti
+
+00000388 <main>:
+
+//#######################################################################################################
+int main(void)
+{
+ 388:	8f 92       	push	r8
+ 38a:	9f 92       	push	r9
+ 38c:	af 92       	push	r10
+ 38e:	bf 92       	push	r11
+ 390:	df 92       	push	r13
+ 392:	ef 92       	push	r14
+ 394:	ff 92       	push	r15
+ 396:	0f 93       	push	r16
+ 398:	1f 93       	push	r17
+ 39a:	df 93       	push	r29
+ 39c:	cf 93       	push	r28
+ 39e:	cd b7       	in	r28, 0x3d	; 61
+ 3a0:	de b7       	in	r29, 0x3e	; 62
+ 3a2:	28 97       	sbiw	r28, 0x08	; 8
+ 3a4:	0f b6       	in	r0, 0x3f	; 63
+ 3a6:	f8 94       	cli
+ 3a8:	de bf       	out	0x3e, r29	; 62
+ 3aa:	0f be       	out	0x3f, r0	; 63
+ 3ac:	cd bf       	out	0x3d, r28	; 61
+	DDRD	=0b00000000;	DDRA	=0b00000000;
+ 3ae:	11 ba       	out	0x11, r1	; 17
+ 3b0:	1a ba       	out	0x1a, r1	; 26
+	PORTD	=0b11111111;	PORTA	=0b11111111;
+ 3b2:	8f ef       	ldi	r24, 0xFF	; 255
+ 3b4:	82 bb       	out	0x12, r24	; 18
+ 3b6:	8b bb       	out	0x1b, r24	; 27
+	
+    PWM_DDR = 0xFF;         // Port als Ausgang
+ 3b8:	87 bb       	out	0x17, r24	; 23
+    
+    // Timer 1 OCRA1, als variablem Timer nutzen
+    TCCR1B = 2;             // Timer läuft mit Prescaler 8
+ 3ba:	82 e0       	ldi	r24, 0x02	; 2
+ 3bc:	8e bd       	out	0x2e, r24	; 46
+    TIMSK |= (1<<OCIE1A);   // Interrupt freischalten
+ 3be:	89 b7       	in	r24, 0x39	; 57
+ 3c0:	80 64       	ori	r24, 0x40	; 64
+ 3c2:	89 bf       	out	0x39, r24	; 57
+				WDTO_250MS 	4 		250 ms
+				WDTO_500MS	5 		500 s
+				WDTO_1S		6 		1 	S
+				WDTO_2S 	7 		2	s		*/
+
+	wdt_enable(WDTO_120MS);	
+ 3c4:	2b e0       	ldi	r18, 0x0B	; 11
+ 3c6:	88 e1       	ldi	r24, 0x18	; 24
+ 3c8:	90 e0       	ldi	r25, 0x00	; 0
+ 3ca:	0f b6       	in	r0, 0x3f	; 63
+ 3cc:	f8 94       	cli
+ 3ce:	a8 95       	wdr
+ 3d0:	81 bd       	out	0x21, r24	; 33
+ 3d2:	0f be       	out	0x3f, r0	; 63
+ 3d4:	21 bd       	out	0x21, r18	; 33
+	
+    sei();                  // Interrupts gloabl einschalten
+ 3d6:	78 94       	sei
+	uint8_t i;
+
+	while (1) 
+		{
+		//### Watchdog
+		wdt_reset();
+ 3d8:	5e 01       	movw	r10, r28
+ 3da:	08 94       	sec
+ 3dc:	a1 1c       	adc	r10, r1
+ 3de:	b1 1c       	adc	r11, r1
+		
+		//### 
+		for (i=0; i<PWM_CHANNELS; i++) 
+ 3e0:	f9 e0       	ldi	r31, 0x09	; 9
+ 3e2:	8f 2e       	mov	r8, r31
+ 3e4:	91 2c       	mov	r9, r1
+ 3e6:	8c 0e       	add	r8, r28
+ 3e8:	9d 1e       	adc	r9, r29
+	uint8_t i;
+
+	while (1) 
+		{
+		//### Watchdog
+		wdt_reset();
+ 3ea:	a8 95       	wdr
+ 3ec:	75 01       	movw	r14, r10
+		
+		//### 
+		for (i=0; i<PWM_CHANNELS; i++) 
+			{
+			if (zufall[i] > rand()%250) 	{zufall[i] -= rand()%40;}			//
+ 3ee:	f7 01       	movw	r30, r14
+ 3f0:	00 81       	ld	r16, Z
+ 3f2:	10 e0       	ldi	r17, 0x00	; 0
+ 3f4:	96 d0       	rcall	.+300    	; 0x522 <rand>
+ 3f6:	6a ef       	ldi	r22, 0xFA	; 250
+ 3f8:	70 e0       	ldi	r23, 0x00	; 0
+ 3fa:	22 d0       	rcall	.+68     	; 0x440 <__divmodhi4>
+ 3fc:	f7 01       	movw	r30, r14
+ 3fe:	d0 80       	ld	r13, Z
+ 400:	80 17       	cp	r24, r16
+ 402:	91 07       	cpc	r25, r17
+ 404:	34 f4       	brge	.+12     	; 0x412 <main+0x8a>
+ 406:	8d d0       	rcall	.+282    	; 0x522 <rand>
+ 408:	68 e2       	ldi	r22, 0x28	; 40
+ 40a:	70 e0       	ldi	r23, 0x00	; 0
+ 40c:	19 d0       	rcall	.+50     	; 0x440 <__divmodhi4>
+ 40e:	d8 1a       	sub	r13, r24
+ 410:	05 c0       	rjmp	.+10     	; 0x41c <main+0x94>
+			else 							{zufall[i] += rand()%30;}			
+ 412:	87 d0       	rcall	.+270    	; 0x522 <rand>
+ 414:	6e e1       	ldi	r22, 0x1E	; 30
+ 416:	70 e0       	ldi	r23, 0x00	; 0
+ 418:	13 d0       	rcall	.+38     	; 0x440 <__divmodhi4>
+ 41a:	d8 0e       	add	r13, r24
+ 41c:	f7 01       	movw	r30, r14
+ 41e:	d0 82       	st	Z, r13
+ 420:	08 94       	sec
+ 422:	e1 1c       	adc	r14, r1
+ 424:	f1 1c       	adc	r15, r1
+		{
+		//### Watchdog
+		wdt_reset();
+		
+		//### 
+		for (i=0; i<PWM_CHANNELS; i++) 
+ 426:	e8 14       	cp	r14, r8
+ 428:	f9 04       	cpc	r15, r9
+ 42a:	09 f7       	brne	.-62     	; 0x3ee <main+0x66>
+			{
+			if (zufall[i] > rand()%250) 	{zufall[i] -= rand()%40;}			//
+			else 							{zufall[i] += rand()%30;}			
+			}
+		memcpy(pwm_setting, zufall, 8);
+ 42c:	ab e8       	ldi	r26, 0x8B	; 139
+ 42e:	b0 e0       	ldi	r27, 0x00	; 0
+ 430:	f5 01       	movw	r30, r10
+ 432:	88 e0       	ldi	r24, 0x08	; 8
+ 434:	01 90       	ld	r0, Z+
+ 436:	0d 92       	st	X+, r0
+ 438:	81 50       	subi	r24, 0x01	; 1
+ 43a:	e1 f7       	brne	.-8      	; 0x434 <main+0xac>
+		
+		
+		pwm_update();
+ 43c:	2f de       	rcall	.-930    	; 0x9c <pwm_update>
+ 43e:	d5 cf       	rjmp	.-86     	; 0x3ea <main+0x62>
+
+00000440 <__divmodhi4>:
+ 440:	97 fb       	bst	r25, 7
+ 442:	09 2e       	mov	r0, r25
+ 444:	07 26       	eor	r0, r23
+ 446:	0a d0       	rcall	.+20     	; 0x45c <__divmodhi4_neg1>
+ 448:	77 fd       	sbrc	r23, 7
+ 44a:	04 d0       	rcall	.+8      	; 0x454 <__divmodhi4_neg2>
+ 44c:	0c d0       	rcall	.+24     	; 0x466 <__udivmodhi4>
+ 44e:	06 d0       	rcall	.+12     	; 0x45c <__divmodhi4_neg1>
+ 450:	00 20       	and	r0, r0
+ 452:	1a f4       	brpl	.+6      	; 0x45a <__divmodhi4_exit>
+
+00000454 <__divmodhi4_neg2>:
+ 454:	70 95       	com	r23
+ 456:	61 95       	neg	r22
+ 458:	7f 4f       	sbci	r23, 0xFF	; 255
+
+0000045a <__divmodhi4_exit>:
+ 45a:	08 95       	ret
+
+0000045c <__divmodhi4_neg1>:
+ 45c:	f6 f7       	brtc	.-4      	; 0x45a <__divmodhi4_exit>
+ 45e:	90 95       	com	r25
+ 460:	81 95       	neg	r24
+ 462:	9f 4f       	sbci	r25, 0xFF	; 255
+ 464:	08 95       	ret
+
+00000466 <__udivmodhi4>:
+ 466:	aa 1b       	sub	r26, r26
+ 468:	bb 1b       	sub	r27, r27
+ 46a:	51 e1       	ldi	r21, 0x11	; 17
+ 46c:	07 c0       	rjmp	.+14     	; 0x47c <__udivmodhi4_ep>
+
+0000046e <__udivmodhi4_loop>:
+ 46e:	aa 1f       	adc	r26, r26
+ 470:	bb 1f       	adc	r27, r27
+ 472:	a6 17       	cp	r26, r22
+ 474:	b7 07       	cpc	r27, r23
+ 476:	10 f0       	brcs	.+4      	; 0x47c <__udivmodhi4_ep>
+ 478:	a6 1b       	sub	r26, r22
+ 47a:	b7 0b       	sbc	r27, r23
+
+0000047c <__udivmodhi4_ep>:
+ 47c:	88 1f       	adc	r24, r24
+ 47e:	99 1f       	adc	r25, r25
+ 480:	5a 95       	dec	r21
+ 482:	a9 f7       	brne	.-22     	; 0x46e <__udivmodhi4_loop>
+ 484:	80 95       	com	r24
+ 486:	90 95       	com	r25
+ 488:	bc 01       	movw	r22, r24
+ 48a:	cd 01       	movw	r24, r26
+ 48c:	08 95       	ret
+
+0000048e <do_rand>:
+ 48e:	a0 e0       	ldi	r26, 0x00	; 0
+ 490:	b0 e0       	ldi	r27, 0x00	; 0
+ 492:	ec e4       	ldi	r30, 0x4C	; 76
+ 494:	f2 e0       	ldi	r31, 0x02	; 2
+ 496:	90 c0       	rjmp	.+288    	; 0x5b8 <__prologue_saves__+0x10>
+ 498:	ec 01       	movw	r28, r24
+ 49a:	a8 80       	ld	r10, Y
+ 49c:	b9 80       	ldd	r11, Y+1	; 0x01
+ 49e:	ca 80       	ldd	r12, Y+2	; 0x02
+ 4a0:	db 80       	ldd	r13, Y+3	; 0x03
+ 4a2:	a1 14       	cp	r10, r1
+ 4a4:	b1 04       	cpc	r11, r1
+ 4a6:	c1 04       	cpc	r12, r1
+ 4a8:	d1 04       	cpc	r13, r1
+ 4aa:	41 f4       	brne	.+16     	; 0x4bc <do_rand+0x2e>
+ 4ac:	84 e2       	ldi	r24, 0x24	; 36
+ 4ae:	a8 2e       	mov	r10, r24
+ 4b0:	89 ed       	ldi	r24, 0xD9	; 217
+ 4b2:	b8 2e       	mov	r11, r24
+ 4b4:	8b e5       	ldi	r24, 0x5B	; 91
+ 4b6:	c8 2e       	mov	r12, r24
+ 4b8:	87 e0       	ldi	r24, 0x07	; 7
+ 4ba:	d8 2e       	mov	r13, r24
+ 4bc:	c6 01       	movw	r24, r12
+ 4be:	b5 01       	movw	r22, r10
+ 4c0:	2d e1       	ldi	r18, 0x1D	; 29
+ 4c2:	33 ef       	ldi	r19, 0xF3	; 243
+ 4c4:	41 e0       	ldi	r20, 0x01	; 1
+ 4c6:	50 e0       	ldi	r21, 0x00	; 0
+ 4c8:	54 d0       	rcall	.+168    	; 0x572 <__divmodsi4>
+ 4ca:	27 ea       	ldi	r18, 0xA7	; 167
+ 4cc:	31 e4       	ldi	r19, 0x41	; 65
+ 4ce:	40 e0       	ldi	r20, 0x00	; 0
+ 4d0:	50 e0       	ldi	r21, 0x00	; 0
+ 4d2:	36 d0       	rcall	.+108    	; 0x540 <__mulsi3>
+ 4d4:	7b 01       	movw	r14, r22
+ 4d6:	8c 01       	movw	r16, r24
+ 4d8:	c6 01       	movw	r24, r12
+ 4da:	b5 01       	movw	r22, r10
+ 4dc:	2d e1       	ldi	r18, 0x1D	; 29
+ 4de:	33 ef       	ldi	r19, 0xF3	; 243
+ 4e0:	41 e0       	ldi	r20, 0x01	; 1
+ 4e2:	50 e0       	ldi	r21, 0x00	; 0
+ 4e4:	46 d0       	rcall	.+140    	; 0x572 <__divmodsi4>
+ 4e6:	ca 01       	movw	r24, r20
+ 4e8:	b9 01       	movw	r22, r18
+ 4ea:	2c ee       	ldi	r18, 0xEC	; 236
+ 4ec:	34 ef       	ldi	r19, 0xF4	; 244
+ 4ee:	4f ef       	ldi	r20, 0xFF	; 255
+ 4f0:	5f ef       	ldi	r21, 0xFF	; 255
+ 4f2:	26 d0       	rcall	.+76     	; 0x540 <__mulsi3>
+ 4f4:	6e 0d       	add	r22, r14
+ 4f6:	7f 1d       	adc	r23, r15
+ 4f8:	80 1f       	adc	r24, r16
+ 4fa:	91 1f       	adc	r25, r17
+ 4fc:	97 ff       	sbrs	r25, 7
+ 4fe:	04 c0       	rjmp	.+8      	; 0x508 <do_rand+0x7a>
+ 500:	61 50       	subi	r22, 0x01	; 1
+ 502:	70 40       	sbci	r23, 0x00	; 0
+ 504:	80 40       	sbci	r24, 0x00	; 0
+ 506:	90 48       	sbci	r25, 0x80	; 128
+ 508:	68 83       	st	Y, r22
+ 50a:	79 83       	std	Y+1, r23	; 0x01
+ 50c:	8a 83       	std	Y+2, r24	; 0x02
+ 50e:	9b 83       	std	Y+3, r25	; 0x03
+ 510:	9b 01       	movw	r18, r22
+ 512:	3f 77       	andi	r19, 0x7F	; 127
+ 514:	c9 01       	movw	r24, r18
+ 516:	cd b7       	in	r28, 0x3d	; 61
+ 518:	de b7       	in	r29, 0x3e	; 62
+ 51a:	ea e0       	ldi	r30, 0x0A	; 10
+ 51c:	69 c0       	rjmp	.+210    	; 0x5f0 <__epilogue_restores__+0x10>
+
+0000051e <rand_r>:
+ 51e:	b7 df       	rcall	.-146    	; 0x48e <do_rand>
+ 520:	08 95       	ret
+
+00000522 <rand>:
+ 522:	89 e6       	ldi	r24, 0x69	; 105
+ 524:	90 e0       	ldi	r25, 0x00	; 0
+ 526:	b3 df       	rcall	.-154    	; 0x48e <do_rand>
+ 528:	08 95       	ret
+
+0000052a <srand>:
+ 52a:	a0 e0       	ldi	r26, 0x00	; 0
+ 52c:	b0 e0       	ldi	r27, 0x00	; 0
+ 52e:	80 93 69 00 	sts	0x0069, r24
+ 532:	90 93 6a 00 	sts	0x006A, r25
+ 536:	a0 93 6b 00 	sts	0x006B, r26
+ 53a:	b0 93 6c 00 	sts	0x006C, r27
+ 53e:	08 95       	ret
+
+00000540 <__mulsi3>:
+ 540:	ff 27       	eor	r31, r31
+ 542:	ee 27       	eor	r30, r30
+ 544:	bb 27       	eor	r27, r27
+ 546:	aa 27       	eor	r26, r26
+
+00000548 <__mulsi3_loop>:
+ 548:	60 ff       	sbrs	r22, 0
+ 54a:	04 c0       	rjmp	.+8      	; 0x554 <__mulsi3_skip1>
+ 54c:	a2 0f       	add	r26, r18
+ 54e:	b3 1f       	adc	r27, r19
+ 550:	e4 1f       	adc	r30, r20
+ 552:	f5 1f       	adc	r31, r21
+
+00000554 <__mulsi3_skip1>:
+ 554:	22 0f       	add	r18, r18
+ 556:	33 1f       	adc	r19, r19
+ 558:	44 1f       	adc	r20, r20
+ 55a:	55 1f       	adc	r21, r21
+ 55c:	96 95       	lsr	r25
+ 55e:	87 95       	ror	r24
+ 560:	77 95       	ror	r23
+ 562:	67 95       	ror	r22
+ 564:	89 f7       	brne	.-30     	; 0x548 <__mulsi3_loop>
+ 566:	00 97       	sbiw	r24, 0x00	; 0
+ 568:	76 07       	cpc	r23, r22
+ 56a:	71 f7       	brne	.-36     	; 0x548 <__mulsi3_loop>
+
+0000056c <__mulsi3_exit>:
+ 56c:	cf 01       	movw	r24, r30
+ 56e:	bd 01       	movw	r22, r26
+ 570:	08 95       	ret
+
+00000572 <__divmodsi4>:
+ 572:	97 fb       	bst	r25, 7
+ 574:	09 2e       	mov	r0, r25
+ 576:	05 26       	eor	r0, r21
+ 578:	0e d0       	rcall	.+28     	; 0x596 <__divmodsi4_neg1>
+ 57a:	57 fd       	sbrc	r21, 7
+ 57c:	04 d0       	rcall	.+8      	; 0x586 <__divmodsi4_neg2>
+ 57e:	4b d0       	rcall	.+150    	; 0x616 <__udivmodsi4>
+ 580:	0a d0       	rcall	.+20     	; 0x596 <__divmodsi4_neg1>
+ 582:	00 1c       	adc	r0, r0
+ 584:	38 f4       	brcc	.+14     	; 0x594 <__divmodsi4_exit>
+
+00000586 <__divmodsi4_neg2>:
+ 586:	50 95       	com	r21
+ 588:	40 95       	com	r20
+ 58a:	30 95       	com	r19
+ 58c:	21 95       	neg	r18
+ 58e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 590:	4f 4f       	sbci	r20, 0xFF	; 255
+ 592:	5f 4f       	sbci	r21, 0xFF	; 255
+
+00000594 <__divmodsi4_exit>:
+ 594:	08 95       	ret
+
+00000596 <__divmodsi4_neg1>:
+ 596:	f6 f7       	brtc	.-4      	; 0x594 <__divmodsi4_exit>
+ 598:	90 95       	com	r25
+ 59a:	80 95       	com	r24
+ 59c:	70 95       	com	r23
+ 59e:	61 95       	neg	r22
+ 5a0:	7f 4f       	sbci	r23, 0xFF	; 255
+ 5a2:	8f 4f       	sbci	r24, 0xFF	; 255
+ 5a4:	9f 4f       	sbci	r25, 0xFF	; 255
+ 5a6:	08 95       	ret
+
+000005a8 <__prologue_saves__>:
+ 5a8:	2f 92       	push	r2
+ 5aa:	3f 92       	push	r3
+ 5ac:	4f 92       	push	r4
+ 5ae:	5f 92       	push	r5
+ 5b0:	6f 92       	push	r6
+ 5b2:	7f 92       	push	r7
+ 5b4:	8f 92       	push	r8
+ 5b6:	9f 92       	push	r9
+ 5b8:	af 92       	push	r10
+ 5ba:	bf 92       	push	r11
+ 5bc:	cf 92       	push	r12
+ 5be:	df 92       	push	r13
+ 5c0:	ef 92       	push	r14
+ 5c2:	ff 92       	push	r15
+ 5c4:	0f 93       	push	r16
+ 5c6:	1f 93       	push	r17
+ 5c8:	cf 93       	push	r28
+ 5ca:	df 93       	push	r29
+ 5cc:	cd b7       	in	r28, 0x3d	; 61
+ 5ce:	de b7       	in	r29, 0x3e	; 62
+ 5d0:	ca 1b       	sub	r28, r26
+ 5d2:	db 0b       	sbc	r29, r27
+ 5d4:	0f b6       	in	r0, 0x3f	; 63
+ 5d6:	f8 94       	cli
+ 5d8:	de bf       	out	0x3e, r29	; 62
+ 5da:	0f be       	out	0x3f, r0	; 63
+ 5dc:	cd bf       	out	0x3d, r28	; 61
+ 5de:	09 94       	ijmp
+
+000005e0 <__epilogue_restores__>:
+ 5e0:	2a 88       	ldd	r2, Y+18	; 0x12
+ 5e2:	39 88       	ldd	r3, Y+17	; 0x11
+ 5e4:	48 88       	ldd	r4, Y+16	; 0x10
+ 5e6:	5f 84       	ldd	r5, Y+15	; 0x0f
+ 5e8:	6e 84       	ldd	r6, Y+14	; 0x0e
+ 5ea:	7d 84       	ldd	r7, Y+13	; 0x0d
+ 5ec:	8c 84       	ldd	r8, Y+12	; 0x0c
+ 5ee:	9b 84       	ldd	r9, Y+11	; 0x0b
+ 5f0:	aa 84       	ldd	r10, Y+10	; 0x0a
+ 5f2:	b9 84       	ldd	r11, Y+9	; 0x09
+ 5f4:	c8 84       	ldd	r12, Y+8	; 0x08
+ 5f6:	df 80       	ldd	r13, Y+7	; 0x07
+ 5f8:	ee 80       	ldd	r14, Y+6	; 0x06
+ 5fa:	fd 80       	ldd	r15, Y+5	; 0x05
+ 5fc:	0c 81       	ldd	r16, Y+4	; 0x04
+ 5fe:	1b 81       	ldd	r17, Y+3	; 0x03
+ 600:	aa 81       	ldd	r26, Y+2	; 0x02
+ 602:	b9 81       	ldd	r27, Y+1	; 0x01
+ 604:	ce 0f       	add	r28, r30
+ 606:	d1 1d       	adc	r29, r1
+ 608:	0f b6       	in	r0, 0x3f	; 63
+ 60a:	f8 94       	cli
+ 60c:	de bf       	out	0x3e, r29	; 62
+ 60e:	0f be       	out	0x3f, r0	; 63
+ 610:	cd bf       	out	0x3d, r28	; 61
+ 612:	ed 01       	movw	r28, r26
+ 614:	08 95       	ret
+
+00000616 <__udivmodsi4>:
+ 616:	a1 e2       	ldi	r26, 0x21	; 33
+ 618:	1a 2e       	mov	r1, r26
+ 61a:	aa 1b       	sub	r26, r26
+ 61c:	bb 1b       	sub	r27, r27
+ 61e:	fd 01       	movw	r30, r26
+ 620:	0d c0       	rjmp	.+26     	; 0x63c <__udivmodsi4_ep>
+
+00000622 <__udivmodsi4_loop>:
+ 622:	aa 1f       	adc	r26, r26
+ 624:	bb 1f       	adc	r27, r27
+ 626:	ee 1f       	adc	r30, r30
+ 628:	ff 1f       	adc	r31, r31
+ 62a:	a2 17       	cp	r26, r18
+ 62c:	b3 07       	cpc	r27, r19
+ 62e:	e4 07       	cpc	r30, r20
+ 630:	f5 07       	cpc	r31, r21
+ 632:	20 f0       	brcs	.+8      	; 0x63c <__udivmodsi4_ep>
+ 634:	a2 1b       	sub	r26, r18
+ 636:	b3 0b       	sbc	r27, r19
+ 638:	e4 0b       	sbc	r30, r20
+ 63a:	f5 0b       	sbc	r31, r21
+
+0000063c <__udivmodsi4_ep>:
+ 63c:	66 1f       	adc	r22, r22
+ 63e:	77 1f       	adc	r23, r23
+ 640:	88 1f       	adc	r24, r24
+ 642:	99 1f       	adc	r25, r25
+ 644:	1a 94       	dec	r1
+ 646:	69 f7       	brne	.-38     	; 0x622 <__udivmodsi4_loop>
+ 648:	60 95       	com	r22
+ 64a:	70 95       	com	r23
+ 64c:	80 95       	com	r24
+ 64e:	90 95       	com	r25
+ 650:	9b 01       	movw	r18, r22
+ 652:	ac 01       	movw	r20, r24
+ 654:	bd 01       	movw	r22, r26
+ 656:	cf 01       	movw	r24, r30
+ 658:	08 95       	ret
+
+0000065a <_exit>:
+ 65a:	f8 94       	cli
+
+0000065c <__stop_program>:
+ 65c:	ff cf       	rjmp	.-2      	; 0x65c <__stop_program>
